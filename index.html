@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tyler Kang — Portfolio</title>
+  <meta name="description" content="Portfolio of Tyler Kang — Data analyst (Python, SQL, Power BI, ML/LLM).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="#top" class="logo">TK</a>
+    <nav class="nav">
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO / FIRST PAGE -->
+  <section id="top" class="section hero">
+    <div class="hero-inner reveal">
+      <h1 class="name">Tyler Kang</h1>
+      <p class="bio">
+        Data analyst focused on Python, SQL, and Power BI. I build reliable data pipelines and ML/LLM prototypes that turn messy data into clear decisions. 
+        I care about fast feedback loops, sound experimentation, and simple dashboards that teams actually use.
+      </p>
+      <div class="project-intro">
+        <h3>What you’ll see below</h3>
+        <ul>
+          <li><strong>QUANTDASH Trading Bot</strong> — tick-stream ingestion, Parquet store, SQL ETL, and risk-managed validation.</li>
+          <li><strong>LLM Email Triage Tool</strong> — FastAPI service that auto-labels and drafts structured replies; eval harness.</li>
+        </ul>
+      </div>
+
+      <a class="scroll-indicator" href="#quantdash" aria-label="Scroll to projects">
+        <span>Scroll to projects</span>
+        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M12 16l-6-6h12z" fill="currentColor"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- PROJECT 1 -->
+  <section id="projects" class="section project" aria-label="Projects">
+    <article id="quantdash" class="project-wrap reveal">
+      <header class="project-header">
+        <h2>QUANTDASH Trading Bot</h2>
+      </header>
+
+      <div class="project-media">
+        <video controls playsinline poster="assets/images/quant-thumb.jpg">
+          <source src="assets/videos/quantdash-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="project-body">
+        <p>
+          Tick‑level streaming via Alpaca, Parquet storage, SQL‑based ETL, and walk‑forward risk validation. 
+          Designed for quick hypothesis tests with auditable metrics.
+        </p>
+        <p class="tech">Tech: Python, Alpaca, Parquet, SQL</p>
+        <p class="links">
+          <a class="btn" href="https://github.com/TylerK0417/quantdash" target="_blank" rel="noopener">View Code</a>
+        </p>
+      </div>
+
+      <a class="scroll-indicator next" href="#email-tool" aria-label="Scroll to next project">
+        <span>Next: LLM Email Triage Tool</span>
+        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M12 16l-6-6h12z" fill="currentColor"/></svg>
+      </a>
+    </article>
+  </section>
+
+  <!-- PROJECT 2 -->
+  <section id="email-tool" class="section project alt">
+    <article class="project-wrap reveal">
+      <header class="project-header">
+        <h2>LLM Email Triage Tool</h2>
+      </header>
+
+      <div class="project-media">
+        <video controls playsinline poster="assets/images/llm-thumb.jpg">
+          <source src="assets/videos/llm-triage-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="project-body">
+        <p>
+          FastAPI service that auto‑labels inbox messages and drafts structured replies using an LLM. 
+          Includes an evaluation harness and latency/error monitoring.
+        </p>
+        <p class="tech">Tech: FastAPI, Docker, OpenAI</p>
+        <p class="links">
+          <a class="btn" href="https://github.com/TylerK0417/llm-email-triage" target="_blank" rel="noopener">View Code</a>
+        </p>
+      </div>
+
+      <a class="scroll-indicator next" href="#contact" aria-label="Scroll to contact">
+        <span>Contact</span>
+        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M12 16l-6-6h12z" fill="currentColor"/></svg>
+      </a>
+    </article>
+  </section>
+
+  <!-- CONTACT FOOTER -->
+  <footer id="contact" class="section contact">
+    <div class="contact-inner reveal">
+      <h2>Get in touch</h2>
+      <p><a class="email" href="mailto:hello@tylerkang0417.com">hello@tylerkang0417.com</a></p>
+      <p class="links">
+        <a href="Tyler_Kang_Resume.pdf" class="btn">Download Resume</a>
+        <a href="https://github.com/TylerK0417" target="_blank" class="btn ghost" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/tyler-kang-879514223/" target="_blank" class="btn ghost" rel="noopener">LinkedIn</a>
+      </p>
+      <p class="copyright">© <span id="year"></span> Tyler Kang</p>
+    </div>
+  </footer>
+
+  <script>
+    // smooth-anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if(el){
+          e.preventDefault();
+          const hh = document.querySelector('.site-header')?.offsetHeight || 0;
+const y = el.getBoundingClientRect().top + window.pageYOffset - (hh + 12);
+window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // simple reveal on intersection
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
