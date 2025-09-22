@@ -121,9 +121,20 @@
           •	Built an LLM-powered tool in Python to auto-label emails and draft structured replies with validated JSON outputs
           •	Served via FastAPI/Docker; added evaluation harness (precision/recall, action‑success) and latency monitor in Power BI
 
-          How it Works (Demo): In the video it is not connected to Gmail for privacy reasons. In the inbox we can see the emails from various clients from patients, insurance companies and different requests.
-          You select which meail you want to Triage and draft an auto reply after calling an OpenAI api, there is a JSON output to label the email with details on the thought process of the LLM-powered
-          After you can edit the draft and reply back efficiently with the help of ChatGPT
+          How it Works (Demo): Gmail is NOT connected for privacy reasons
+          1. Inbox loads 8 demo curated dental emails (appointment booking, insurer follow-ups, ortho x-ray request, whitening Q&A, emergency, EOB discrepancy, records transfer).
+          2. User selects a message → large Read & Prepare preview shows the full email.
+          3. Triage (rule-based, deterministic) assigns one label + intent and extracts entities (e.g., insurer=Manulife, member_id=MNL-884201, radiographs=bitewings, panoramic, tooth_numbers=16, DOB=1993-11-02).
+          4. Suggested Action renders the JSON (for transparency) and a reply preview with bullet points and next steps.
+          5. (Optional) With Gmail connected: Create Draft and Apply Snooze Label actions appear—no auto-send, safe for demo.
+          6. Lightweight metrics path provided (eval.py) for quick offline checks.
+
+          Next Steps:
+          1. Live Gmail read + OAuth in production project; batch label suggestions.
+          2. Calendar/booking integration (Google/Microsoft) to show real availability in replies.
+          3. Template manager + clinic-specific style guide; multilingual variants.
+          4. Export packages for insurer portals (predetermination docs, CDT codes, x-ray attachments).
+          5. PHI safeguards: secure storage, minimal scopes, and audit logs for draft operations.
         </p>
         <p class="tech">Tech: FastAPI, Docker, OpenAI</p>
         <p class="links">
