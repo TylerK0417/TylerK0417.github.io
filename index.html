@@ -24,8 +24,12 @@
     <div class="hero-inner reveal">
       <h1 class="name">Tyler Kang</h1>
       <p class="bio">
-        Data analyst focused on Python, SQL, and Power BI. I build reliable data pipelines and ML/LLM prototypes that turn messy data into clear decisions. 
+        Hey, I'm Tyler and I am a double degree that graduated from The University of Waterloo for Mathematics and Wilfrid Laurier Univesrity for Buisness Administration. 
+        I have experience in Python, SQL, and Power BI from work experience and the projects I build. I have a passion in creating reliable data pipelines and ML/LLM prototypes that turn unorganized data into clear decisions. 
         I care about fast feedback loops, sound experimentation, and simple dashboards that teams actually use.
+
+        In my personal life, I love running with my dog and playing badminton. I consistently run everyday to prove to myself to trust the process in the journey, mindset when transforming ideas to projects.
+
       </p>
       <div class="project-intro">
         <h3>What you’ll see below</h3>
@@ -57,8 +61,33 @@
 
       <div class="project-body">
         <p>
-          Tick‑level streaming via Alpaca, Parquet storage, SQL‑based ETL, and walk‑forward risk validation. 
-          Designed for quick hypothesis tests with auditable metrics.
+          Machine Learning QUANTDASH Trading Bot: Built from my interest in equity trading and building an auto trading bot that stored trades for machine learning
+          •	Developed a Python bot streaming tick-level equities/crypto (Alpaca API), storing Parquet data for SQL-based analysis
+          •	Engineered SQL based ETL pipelines and scikit-learn/TensorFlow models with walk-forward validation and risk managed baselines
+          •	Backtested 5M + rows across 50+ equities over 5 years to optimize strategies and features; executed live paper trades
+
+          How it Works (Demo):
+          1. We launch the bot; it initializes the Alpaca paper client, loads any existing positions from the paper account into the local portfolio, and computes initial stop/trailing levels for each open position.
+          2. The optional Live Dashboard spins up (when --dashboard is used), and the bot prints the active config: symbols universe, bar interval, risk and trail percentages, and timeouts for limit and cancel.
+          3. Before trading, the bot reconciles open orders from Alpaca and populates its “open-order guard” so it won’t double-send if something is already working at the broker.
+          4. The main loop starts (every N seconds). For each symbol, it ingests the latest OHLCV bars, computes the MA(1/2) crossover signal, and derives an ATR value used both for initial stop distance and position sizing.
+          5. If a long entry signal appears and we’re flat, the bot sizes the position using risk controls (ATR-based stop distance, buying power/notional caps) and submits a LIMIT order first. For equities, it uses DAY TIF; for crypto, GTC.
+          6. While a LIMIT is working, the bot’s duplicate-order guard (keyed by symbol+side and refreshed from Alpaca) prevents any re-entrant tick or stop logic from posting a second order. Every submit also includes a unique client_order_id for broker-side idempotency.
+          7. If the LIMIT hasn’t filled within the configured limit timeout, the bot issues a cancel, polls for a terminal state, and then sends a fallback order for the exact remaining quantity:
+          - Equities: a “marketable LIMIT” with extended_hours=True (acts like market after-hours).
+          - Crypto: a true MARKET order (24/7).
+          8. For exits (either a flat signal or a stop/take-profit hit), the bot mirrors the same flow: submit LIMIT, wait, cancel, then fallback for the remainder, again protected by the same dedupe guard so we don’t double-sell or accidentally short.
+          9. On every loop, the bot ratchets trailing stops: when a bar makes a new high against the trail base, it moves the stop up (never down) by the configured trail percent (or ATR mode, per your settings). Stop/TP breaches trigger immediate exits.
+          10. All actions are logged: each place/cancel/fill path prints to the console and is also written to a persistent CSV (timestamp, symbol, side, qty, order IDs, and prices), so you can show auditability in the video.
+          11. The bot enforces the “one position per symbol” rule: if already long and the signal stays long, it does nothing; if flat and the signal stays flat, it does nothing—only state changes trigger orders.
+          12. When you stop the process, the portfolio state (positions and their current stops/trail bases) is saved, so a restart will pick up where it left off without duplicate orders or lost risk settings.
+
+          Next Steps: For Machine Learning and Live Trading
+          1. ML-driven signals: move from rules to a probability “signal scorer” (tree-based first; later lightweight transformers) that predicts profitable trades.
+          2. Richer features: add regime context (breadth, volatility, macro calendar) and selective alt-data (sentiment, options skew) to boost robustness.
+          3. Adaptive risk & sizing: scale position size with model confidence and volatility; enforce exposure/correlation caps and hard kill-switches
+          4. Rolling retrain & promotion: nightly/weekly walk-forward retrains; promote only if out-of-sample Sharpe/hit-rate improve; auto-rollback and drift monitoring.
+          5. Execution & ops hardening: smarter marketable-limit logic (RTH/AH aware), partial-fill handling, live dashboards, and CI/CD that blocks deploys on metric regressions.
         </p>
         <p class="tech">Tech: Python, Alpaca, Parquet, SQL</p>
         <p class="links">
@@ -88,8 +117,13 @@
 
       <div class="project-body">
         <p>
-          FastAPI service that auto‑labels inbox messages and drafts structured replies using an LLM. 
-          Includes an evaluation harness and latency/error monitoring.
+          Email Triage Tool: Built originally for my family dental clinic in sorting receptionist emails to organize and draft auto replies to help process their work
+          •	Built an LLM-powered tool in Python to auto-label emails and draft structured replies with validated JSON outputs
+          •	Served via FastAPI/Docker; added evaluation harness (precision/recall, action‑success) and latency monitor in Power BI
+
+          How it Works (Demo): In the video it is not connected to Gmail for privacy reasons. In the inbox we can see the emails from various clients from patients, insurance companies and different requests.
+          You select which meail you want to Triage and draft an auto reply after calling an OpenAI api, there is a JSON output to label the email with details on the thought process of the LLM-powered
+          After you can edit the draft and reply back efficiently with the help of ChatGPT
         </p>
         <p class="tech">Tech: FastAPI, Docker, OpenAI</p>
         <p class="links">
