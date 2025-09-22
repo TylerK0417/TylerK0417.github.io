@@ -67,7 +67,7 @@
           <p>•	Backtested 5M + rows across 50+ equities over 5 years to optimize strategies and features; executed live paper trades</p>
         </p>
 
-          <h3>How it works (demo)</h3>
+          <h3>How it works (demo): </h3>
           <ol>
           <li>We launch the bot; it initializes the Alpaca paper client, loads any existing positions from the paper account into the local portfolio, and computes initial stop/trailing levels for each open position.
           <li>The optional Live Dashboard spins up (when --dashboard is used), and the bot prints the active config: symbols universe, bar interval, risk and trail percentages, and timeouts for limit and cancel.</li>
@@ -87,11 +87,11 @@
 
           <h3>Next Steps: For Machine Learning and Live Trading</h3>
           <ol>
-          <li>1. ML-driven signals: move from rules to a probability “signal scorer” (tree-based first; later lightweight transformers) that predicts profitable trades.</li>
-          <li>2. Richer features: add regime context (breadth, volatility, macro calendar) and selective alt-data (sentiment, options skew) to boost robustness.</li>
-          <li>3. Adaptive risk & sizing: scale position size with model confidence and volatility; enforce exposure/correlation caps and hard kill-switches</li>
-          <li>4. Rolling retrain & promotion: nightly/weekly walk-forward retrains; promote only if out-of-sample Sharpe/hit-rate improve; auto-rollback and drift monitoring.</li>
-          <li>5. Execution & ops hardening: smarter marketable-limit logic (RTH/AH aware), partial-fill handling, live dashboards, and CI/CD that blocks deploys on metric regressions.</li>
+          <li>ML-driven signals: move from rules to a probability “signal scorer” (tree-based first; later lightweight transformers) that predicts profitable trades.</li>
+          <li>Richer features: add regime context (breadth, volatility, macro calendar) and selective alt-data (sentiment, options skew) to boost robustness.</li>
+          <li>Adaptive risk & sizing: scale position size with model confidence and volatility; enforce exposure/correlation caps and hard kill-switches</li>
+          <li>Rolling retrain & promotion: nightly/weekly walk-forward retrains; promote only if out-of-sample Sharpe/hit-rate improve; auto-rollback and drift monitoring.</li>
+          <li>Execution & ops hardening: smarter marketable-limit logic (RTH/AH aware), partial-fill handling, live dashboards, and CI/CD that blocks deploys on metric regressions.</li>
           </ol>
         </p>
         <p class="tech">Tech: Python, Alpaca, Parquet, SQL</p>
@@ -121,25 +121,30 @@
       </div>
 
       <div class="project-body">
-        <p>
-          Email Triage Tool: Built originally for my family dental clinic in sorting receptionist emails to organize and draft auto replies to help process their work
-          •	Built an LLM-powered tool in Python to auto-label emails and draft structured replies with validated JSON outputs
-          •	Served via FastAPI/Docker; added evaluation harness (precision/recall, action‑success) and latency monitor in Power BI
+        <p Class="lead">
+        <h3>Email Triage Tool:</h3><p> Built originally for my family dental clinic in sorting receptionist emails to organize and draft auto replies to help process their work</p>
+        <p>•	Built an LLM-powered tool in Python to auto-label emails and draft structured replies with validated JSON outputs</p> 
+        <p>•	Served via FastAPI/Docker; added evaluation harness (precision/recall, action‑success) and latency monitor in Power BI</p>
+        </p>
 
-          How it Works (Demo): Gmail is NOT connected for privacy reasons
-          1. Inbox loads 8 demo curated dental emails (appointment booking, insurer follow-ups, ortho x-ray request, whitening Q&A, emergency, EOB discrepancy, records transfer).
-          2. User selects a message → large Read & Prepare preview shows the full email.
-          3. Triage (rule-based, deterministic) assigns one label + intent and extracts entities (e.g., insurer=Manulife, member_id=MNL-884201, radiographs=bitewings, panoramic, tooth_numbers=16, DOB=1993-11-02).
-          4. Suggested Action renders the JSON (for transparency) and a reply preview with bullet points and next steps.
-          5. (Optional) With Gmail connected: Create Draft and Apply Snooze Label actions appear—no auto-send, safe for demo.
-          6. Lightweight metrics path provided (eval.py) for quick offline checks.
+          <h3></h3>How it Works (Demo): <p>Gmail is NOT connected for privacy reasons</p>
+          <ol>
+          <li>Inbox loads 8 demo curated dental emails (appointment booking, insurer follow-ups, ortho x-ray request, whitening Q&A, emergency, EOB discrepancy, records transfer).</li>
+          <li>User selects a message → large Read & Prepare preview shows the full email.</li>
+          <li>Triage (rule-based, deterministic) assigns one label + intent and extracts entities (e.g., insurer=Manulife, member_id=MNL-884201, radiographs=bitewings, panoramic, tooth_numbers=16, DOB=1993-11-02).</li>
+          <li>Suggested Action renders the JSON (for transparency) and a reply preview with bullet points and next steps.</li>
+          <li>(Optional) With Gmail connected: Create Draft and Apply Snooze Label actions appear—no auto-send, safe for demo.</li>
+          <li>Lightweight metrics path provided (eval.py) for quick offline checks.</li>
+          </ol>
 
-          Next Steps:
-          1. Live Gmail read + OAuth in production project; batch label suggestions.
-          2. Calendar/booking integration (Google/Microsoft) to show real availability in replies.
-          3. Template manager + clinic-specific style guide; multilingual variants.
-          4. Export packages for insurer portals (predetermination docs, CDT codes, x-ray attachments).
-          5. PHI safeguards: secure storage, minimal scopes, and audit logs for draft operations.
+          <h3>Next Steps:</h3>
+          <ol>
+          <li>Live Gmail read + OAuth in production project; batch label suggestions.</li>
+          <li>Calendar/booking integration (Google/Microsoft) to show real availability in replies.</li>
+          <li>Template manager + clinic-specific style guide; multilingual variants.</li>
+          <li>Export packages for insurer portals (predetermination docs, CDT codes, x-ray attachments).</li>
+          <li>PHI safeguards: secure storage, minimal scopes, and audit logs for draft operations.</li>
+          </ol>
         </p>
         <p class="tech">Tech: FastAPI, Docker, OpenAI</p>
         <p class="links">
