@@ -86,11 +86,13 @@
           </ol>
 
           <h3>Next Steps: For Machine Learning and Live Trading</h3>
+          <ol>
           <li>1. ML-driven signals: move from rules to a probability “signal scorer” (tree-based first; later lightweight transformers) that predicts profitable trades.</li>
           <li>2. Richer features: add regime context (breadth, volatility, macro calendar) and selective alt-data (sentiment, options skew) to boost robustness.</li>
           <li>3. Adaptive risk & sizing: scale position size with model confidence and volatility; enforce exposure/correlation caps and hard kill-switches</li>
           <li>4. Rolling retrain & promotion: nightly/weekly walk-forward retrains; promote only if out-of-sample Sharpe/hit-rate improve; auto-rollback and drift monitoring.</li>
           <li>5. Execution & ops hardening: smarter marketable-limit logic (RTH/AH aware), partial-fill handling, live dashboards, and CI/CD that blocks deploys on metric regressions.</li>
+          </ol>
         </p>
         <p class="tech">Tech: Python, Alpaca, Parquet, SQL</p>
         <p class="links">
